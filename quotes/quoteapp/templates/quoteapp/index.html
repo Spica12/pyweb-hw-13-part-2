@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quote to Scrap</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    {% load extract_tags %}
+    <main
+      class="container"
+      style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+    >
+      <nav
+        style="
+          margin-bottom: 20px;
+          border-bottom: 2px solid;
+          padding-left: 30px;
+          padding-right: 30px;
+        "
+      >
+        {% if user.is_authenticated %}
+        <ul>
+          <li>
+            <a href="{% url 'quoteapp:quote' %}" role="button">Add Quote</a>
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:author' %}" role="button">Add Author</a>
+          </li>
+          <li><a href="{% url 'quoteapp:tag' %}" role="button">Add Tag</a></li>
+        </ul>
+        <ul>
+          <li>Welcome <b>{{ user.username }}!</b></li>
+          <li><a href="{% url 'users:profile' %}" role="button">Profile</a></li>
+          <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
+        </ul>
+        {% else %}
+        <ul>
+          <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
+          <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+        </ul>
+        {% endif %}
+      </nav>
+
+      <nav>
+        {% if user.is_authenticated %}
+        <ul>
+          <li>
+            <a href="{% url 'quoteapp:delete_all_quotes' %}" role="button"
+              >Delete all Quotes</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:delete_all_authors' %}" role="button"
+              >Delete all Authors</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:delete_all_tags' %}" role="button"
+              >Delete all Tags</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:seed_quotes' %}" role="button"
+              >Add test Quotes (JSON-file)</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:seed_authors' %}" role="button"
+              >Add test Authors (JSON-file)</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:seed_quotes_mongo' %}" role="button"
+              >Add test Quotes (MongoDB)</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'quoteapp:seed_authors_mongo' %}" role="button"
+              >Add test Authors (MongoDB)</a
+            >
+          </li>
+        </ul>
+        {% endif %}
+      </nav>
+
+      <div class="grid">
+        <div style="width: 150%;">
+          {% for quote in quotes %}
+          <ul>
+            <li>
+              <p>{{ quote.quote }}</p>
+              <p>
+                by <b>{{quote.author}}</b>
+                <a href="{% url 'quoteapp:detail' quote.author.fullname %}"
+                  >(about)</a
+                >
+              </p>
+              <p>
+                Tags:
+                <small>
+                  {% for tag in quote.tags|tags %}
+                  <a href="{% url 'quoteapp:find_quotes_by_tag' tag.name %}">
+                    {{ tag.name }}</a
+                  >, {% endfor %}
+                </small>
+              </p>
+            </li>
+          </ul>
+          {% endfor %}
+        </div>
+        <div style="padding-left: 50%;">
+          <h2>Top Ten Tags:</h2>
+          <ul>
+            {% for tag in most_common_tags %}
+            <li>
+              <a href="{% url 'quoteapp:find_quotes_by_tag' tag.name %}">
+                {{ tag.name }}</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </main>
+    <nav class="container">
+      <span class="step-links">
+
+        {% if quotes.has_previous %}
+        <a href="?page=1" role="button">&laquo; first</a>
+        <a href="?page={{ quotes.previous_page_number }}" role="button">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Сторінка {{ quotes.number }} з {{ quotes.paginator.num_pages }}.
+        </span>
+
+        {% if quotes.has_next %}
+            <a href="?page={{ quotes.next_page_number }}" role="button">next</a>
+            <a href="?page={{ quotes.paginator.num_pages }}" role="button">last &raquo;</a>
+        {% endif %}
+      </span>
+    </nav>
+  </body>
+</html>

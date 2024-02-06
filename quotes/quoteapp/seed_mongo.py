@@ -8,23 +8,22 @@ from django.shortcuts import get_object_or_404, redirect, render
 from mongoengine import (CASCADE, BooleanField, Document, ListField,
                          ReferenceField, StringField, connect)
 
+from quotes.settings import MONGO_DB, MONGO_URI
 from .models import Author, Quote, Tag
 
-file_config = (
-    pathlib.Path(__file__).parent.parent.parent.joinpath("configs").joinpath("config.ini")
-)
-print(file_config)
-config = configparser.ConfigParser()
-config.read(file_config)
+# file_config = (
+#     pathlib.Path(__file__).parent.parent.parent.joinpath("configs").joinpath("config.ini")
+# )
+# print(file_config)
+# config = configparser.ConfigParser()
+# config.read(file_config)
 
-user = config.get("DEV_MONGO_DB", option="USER")
-password = config.get("DEV_MONGO_DB", option="PASSWORD")
-db = config.get("DEV_MONGO_DB", option="DB_NAME")
+# user = config.get("DEV_MONGO_DB", option="USER")
+# password = config.get("DEV_MONGO_DB", option="PASSWORD")
+# db = config.get("DEV_MONGO_DB", option="DB_NAME")
 
-uri = f"mongodb+srv://{user}:{password}@cluster0.ae7t2cd.mongodb.net/?retryWrites=true&w=majority"
-print(uri)
 
-connect(db=db, host=uri)
+connect(db=MONGO_DB, host=MONGO_URI)
 print("Connected")
 
 
@@ -93,7 +92,6 @@ def seed_quotes(request):
 
 
     return redirect(to='quoteapp:main')
-
 
 
 # path_data = Path(__file__).parent.parent.parent.joinpath('data')

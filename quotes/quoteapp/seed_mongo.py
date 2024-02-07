@@ -1,5 +1,3 @@
-import configparser
-import pathlib
 from datetime import datetime
 
 from bson import json_util
@@ -16,6 +14,7 @@ from mongoengine import (
 )
 
 from quotes.settings import MONGO_DB, MONGO_URI
+
 from .models import Author, Quote, Tag
 
 # file_config = (

@@ -27,7 +27,7 @@ def main(request):
     all_quotes = Quote.objects.all()
     items_per_page = 10
     paginator = Paginator(all_quotes, items_per_page)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
 
     try:
         quotes = paginator.page(page)
@@ -144,4 +144,6 @@ def find_quotes_by_tag(request, tag):
 
     quotes = Quote.objects.filter(tags=tag.id).all()
 
-    return render(request, "quoteapp/quotes.html", {"quotes": quotes, 'viewing_tag': tag})
+    return render(
+        request, "quoteapp/quotes.html", {"quotes": quotes, "viewing_tag": tag}
+    )

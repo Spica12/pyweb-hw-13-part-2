@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('quoteapp', '0010_alter_quote_quote'),
+        ("quoteapp", "0010_alter_quote_quote"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='quote',
-            name='quote',
+            model_name="quote",
+            name="quote",
             field=models.CharField(),
         ),
     ]

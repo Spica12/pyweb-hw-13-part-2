@@ -7,38 +7,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('quoteapp', '0002_author'),
+        ("quoteapp", "0002_author"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='quote',
-            name='created',
+            model_name="quote",
+            name="created",
         ),
         migrations.RemoveField(
-            model_name='quote',
-            name='description',
+            model_name="quote",
+            name="description",
         ),
         migrations.RemoveField(
-            model_name='quote',
-            name='done',
+            model_name="quote",
+            name="done",
         ),
         migrations.RemoveField(
-            model_name='quote',
-            name='name',
+            model_name="quote",
+            name="name",
         ),
         migrations.RemoveField(
-            model_name='quote',
-            name='user',
+            model_name="quote",
+            name="user",
         ),
         migrations.AddField(
-            model_name='quote',
-            name='author',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='quoteapp.author'),
+            model_name="quote",
+            name="author",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="quoteapp.author",
+            ),
         ),
         migrations.AddField(
-            model_name='quote',
-            name='quote',
+            model_name="quote",
+            name="quote",
             field=models.CharField(max_length=300, null=True),
         ),
     ]

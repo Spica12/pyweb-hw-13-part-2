@@ -5,8 +5,15 @@ from datetime import datetime
 from bson import json_util
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
-from mongoengine import (CASCADE, BooleanField, Document, ListField,
-                         ReferenceField, StringField, connect)
+from mongoengine import (
+    CASCADE,
+    BooleanField,
+    Document,
+    ListField,
+    ReferenceField,
+    StringField,
+    connect,
+)
 
 from quotes.settings import MONGO_DB, MONGO_URI
 from .models import Author, Quote, Tag
@@ -55,7 +62,7 @@ def seed_authors(request):
 
     for author_mongo in authors:
         try:
-            born_date = datetime.strptime(author_mongo.born_date, '%B %d, %Y')
+            born_date = datetime.strptime(author_mongo.born_date, "%B %d, %Y")
             author = Author(
                 fullname=author_mongo.fullname,
                 born_date=born_date,
@@ -68,7 +75,7 @@ def seed_authors(request):
         except IntegrityError:
             print(f"Author {author_mongo.fullname} exists.")
 
-    return redirect(to='quoteapp:main')
+    return redirect(to="quoteapp:main")
 
 
 def seed_quotes(request):
@@ -90,8 +97,7 @@ def seed_quotes(request):
             tag, created = Tag.objects.get_or_create(name=tag_name, user=request.user)
             quote.tags.add(tag)
 
-
-    return redirect(to='quoteapp:main')
+    return redirect(to="quoteapp:main")
 
 
 # path_data = Path(__file__).parent.parent.parent.joinpath('data')

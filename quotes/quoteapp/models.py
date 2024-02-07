@@ -9,7 +9,7 @@ class Tag(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['user', 'name'], name='tag of username')
+            models.UniqueConstraint(fields=["user", "name"], name="tag of username")
         ]
 
     def __str__(self):

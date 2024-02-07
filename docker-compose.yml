@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "cd quotes && sleep 10 && poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "cd quotes && sleep 5 && poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:

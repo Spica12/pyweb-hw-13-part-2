@@ -1,5 +1,4 @@
 
-
-1) ```django-admin startproject quotes```
-
-2) ```docker run --name quotes-postgres-hw-10 -p 5432:5432 -e POSTGRES_PASSWORD=567234 -d postgres```
+При першому запуску ```docker-compose up --build``` виникне помилка, але треба дочекатись, щоб контейнер з Postgres завантажився.
+Помилка виникає через те що Django не може виконати міграцію, бо не може отримати доступ до бази даних.
+При повторному виклику ```docker-compose up --build``` все чудово завантажується.

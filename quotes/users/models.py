@@ -4,6 +4,7 @@ from PIL import Image
 
 # Create your models here.
 
+
 # Extending User Model Using a One-To-One Link
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
